@@ -8,10 +8,12 @@ const NavBar = () => {
     <>
     <nav className="p-4 border flex justify-between bg-pink-950 mx-1 rounded my-1">
       <div className="flex items-center gap-2">
-         
-         <h1 className="font-extrabold text-xl uppercase font-mono text-white">Pharmacy Inventory 
-            <img src={<IconPharmacy />} alt="" />
-         </h1>
+         <NavLink to='/'>
+            <div className="logo flex items-center gap-2">            
+                <h1 className="font-extrabold text-lg uppercase font-mono text-white">Tabson Pharmacy and stores </h1>         
+                <img src={IconPharmacy} alt="" className='h-10' />
+            </div>
+         </NavLink>
       </div>
       
       <div className="flex gap-1 items-center">

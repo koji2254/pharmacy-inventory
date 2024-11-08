@@ -11,6 +11,10 @@ const CreateProduct = () => {
                 <h3 className='text-blue-900 font-bold text-md roboto'>NEW PRODUCT DETAILS </h3>
                 <form className='p-2 mt-2 border w-full' action="">
                     <div className="b-t">
+                        <label className='roboto text-xs text-gray-600 block font-light my-1' htmlFor="product-title">Product Image</label>
+                        <input type="file" className='p-2 rounded outline:none border w-full border-gray-200 ' />
+                    </div>
+                    <div className="mt-3">
                         <label className='roboto text-xs text-gray-600 block font-light my-1' htmlFor="product-title">Product Tiltle</label>
                         <input type="text" className='p-2 rounded outline:none border w-full border-gray-200 ' />
                     </div>
@@ -43,6 +47,10 @@ const CreateProduct = () => {
                         <div className="b-t">
                             <label className='roboto text-xs text-gray-600 block font-light my-1' htmlFor="product-title">Quantity</label>
                             <input type="number" className='p-2 rounded outline:none border w-full border-gray-200 ' />
+                        </div>
+                        <div className="b-t">
+                            <label className='roboto text-xs text-gray-600 block font-light my-1' htmlFor="product-title">Expiry Date</label>
+                            <input type="date" className='p-2 rounded outline:none border w-full border-gray-200 ' />
                         </div>
                     </div>
                     <div className="mt-3">
