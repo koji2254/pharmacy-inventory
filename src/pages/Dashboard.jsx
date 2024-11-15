@@ -26,6 +26,21 @@ const Dashboard = () => {
                     </NavLink>
                     
                 </div>
+                <div className="card-contaier p-2 grid grid-cols-2 gap-2">
+                    <NavLink to='/shop-now'>
+                        <div className="rounded card flex justify-around items-center h-20 roboto border p-2 h-12 bg-gray-100 hover:shadow">
+                            <p>Shop / Sales</p>
+                            {/* <img src={IconTable} alt="" /> */}
+                        </div>
+                    </NavLink>
+                    <NavLink to='/expenses'>
+                        <div className="rounded flex justify-around items-center h-20 roboto card border p-2 h-12 bg-gray-100">
+                            <p>Expenses</p>
+                            {/* <img src={IconUpload} alt="" /> */}
+                        </div>
+                    </NavLink>
+                    
+                </div> 
             </div>
         </section>
     </>

@@ -1,12 +1,50 @@
-import React from 'react'
+import React, { useEffect, useState }from 'react'
 import NavBar from '../components/NavBar'
 import { NavLink } from 'react-router-dom'
+import Alert from '../components/Alert'
+import Spinner from '../components/Spinner'
+import CenterAlert from '../components/CenterAlert'
+import axios from 'axios'
+import { API_BASE_URL } from '../assets/Proxy'
 
 
 const ProductsTable = () => {
+
+
+    const [products, setProducts] = useState([])
+    const [loading, setLaoding] = useState(false)
+
+    useEffect(() => {
+
+        setLaoding(true)
+        axios.get(`${API_BASE_URL}/products`)
+        .then((response) => {
+            console.log(response.data)
+            const products = response.data.products
+
+            setProducts(products)
+        })
+        .catch((error) => {
+            console.log(error.response.data.message)
+
+        })
+        .finally(() => {
+            setLaoding(false)
+        })
+
+
+
+    }, [])
+
+
   return (
     <>
       <NavBar />
+      {/* <Alert /> */}
+      {/* <Spinner /> */}
+      {/* <CenterAlert status='bad' text='Error occured' /> */}
+    {loading && <Spinner text='Getting Products List' />}
+
     <section className='w-full'>
         <div className="mt-2">
             <div className="flex px-4 justify-between items-center">
@@ -31,65 +69,53 @@ const ProductsTable = () => {
             <div className="">
                 
 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Product name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Roll Price
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Category
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Price
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                    Red Pills
-                </th>
-                <td class="px-6 py-4">
-                    
-                </td>
-                <td class="px-6 py-4">
-                    xxxxxxxxxxxxx
-                </td>
-                <td class="px-6 py-4">
-                    $2999
-                </td>
-                {/* <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td> */}
-            </tr>
-            <tr class="odd:bg-white even:bg-gray-50">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                    cxxxxxxxxxxxxxxxxx
-                </th>
-                <td class="px-6 py-4">
-                    White
-                </td>
-                <td class="px-6 py-4">
-                    xxxxxxxxxxxxxxx
-                </td>
-                <td class="px-6 py-4">
-                    $1999
-                </td>
-                {/* <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
-                </td> */}
-            </tr>
-        </tbody>
-    </table>
-</div>
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Product name
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Roll Price
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Category
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Price
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {products.map((product) => (
+                    <tr key={product.productId} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50">
+                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            {product.productTitle}
+                        </th>
+                        <td className="px-6 py-4">
+                            {product.productCategory}
+                        </td>
+                        <td className="px-6 py-4">
+                            {product.productId}
+                        </td>
+                        <td className="px-6 py-4">
+                            ${product.price}
+                        </td>
+                        <td className="px-6 py-4">
+                            <NavLink to={`/edit-product/${product.productId}`} className="font-medium text-blue-600 hover:underline">
+                                Edit
+                            </NavLink>
+                        </td>
+                    </tr>
+                ))}
+
+                    </tbody>
+                </table>
+            </div>
 
             </div>
         </div>

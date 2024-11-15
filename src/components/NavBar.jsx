@@ -9,9 +9,9 @@ const NavBar = () => {
     <nav className="p-4 border flex justify-between bg-pink-950 mx-1 rounded my-1">
       <div className="flex items-center gap-2">
          <NavLink to='/'>
-            <div className="logo flex items-center gap-2">            
-                <h1 className="font-extrabold text-lg uppercase font-mono text-white">Tabson Pharmacy and stores </h1>         
-                <img src={IconPharmacy} alt="" className='h-10' />
+            <div className="logo flex items-center gap-1">            
+                <h1 className="font-extrabold text-sm md:text-lg uppercase font-mono text-white">Tabson Pharmacy</h1>         
+                <img src={IconPharmacy} alt="" className='h-6' />
             </div>
          </NavLink>
       </div>
