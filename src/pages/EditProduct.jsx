@@ -80,9 +80,10 @@ const EditProduct = () => {
     formData.append('cartonPrice', cartonPrice)
     formData.append('quantity', quantity)
     formData.append('expiryDate', expiryDate)
+    formData.append('productId', productId)
 
       setLoading(true)
-      axios.put(`${API_BASE_URL}/product/${productId}`, formData, {
+      axios.post(`${API_BASE_URL}/product/update-product`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

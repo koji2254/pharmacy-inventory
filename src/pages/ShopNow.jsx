@@ -106,7 +106,7 @@ const ShopNow = () => {
         <div className="">
             <div className="flex items-center justify-between border-b px-2 py-1">
                 <div className="flex items-center gap-2">
-                    <h3 className='font-bold'>Slales</h3>
+                    <h3 className='text-gray-700 text-sm'>Sort</h3>
                     <button onClick={showHistory} className='text-sm p-1 bg-gray-200 rounded'>History</button>
                 </div>
                 
