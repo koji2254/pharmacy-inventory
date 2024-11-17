@@ -89,7 +89,7 @@ const ProductsTable = () => {
                     </thead>
                     <tbody>
                     {products.map((product) => (
-                    <tr key={product.productId} className="border-b odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50">
+                    <tr key={product.productId} className="border-b odd:bg-gray-100 even:bg-gray-50">
                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             {product.productTitle}
                         </th>
