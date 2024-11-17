@@ -9,8 +9,6 @@ import axios from 'axios'
 
 const ShopNow = () => {
 
-    const [cartItems, setCartItems] = useState(localStorage.getItem('cartItems'))
-
     const [onShowHistory, setOnSshowHistory] = useState(false)
     const [onShowCart, setOnShowCart] = useState(false)
     const [onProduct, setOnProduct] = useState(false)
@@ -19,7 +17,15 @@ const ShopNow = () => {
     const [product, setProduct] = useState(null)
     const [loading, setLaoding] = useState(false)
 
+    const [cartItems, setCartItems] = useState(() => {
+        // Initialize state from localStorage, or start with an empty array
+        const storedCart = localStorage.getItem('cartItems');
+        return storedCart ? JSON.parse(storedCart) : [];
+    });
+    
     useEffect(() => {
+
+       
 
         setLaoding(true)
         axios.get(`${API_BASE_URL}/products`)
@@ -77,13 +83,11 @@ const ShopNow = () => {
 
     const addProductToCart = (productOrder) => {
 
-        localStorage.setItem({
-            ...cartItems,
-            productOrder
-        })
-
-        console.log(productOrder)
-    }
+        const updatedCart = [...cartItems, productOrder];
+        setCartItems(updatedCart);
+        localStorage.setItem('cartItems', JSON.stringify(updatedCart)); // Save to localStorage
+      
+    };
 
 
   return (
