@@ -164,12 +164,18 @@ const EditProduct = () => {
       {loading && <Spinner />}
       <section className='w-full p-2'>
         <div className="w-full md:w-8/12">
-          <div className="flex gap-2 items-center border-b py-2">
-            <button className='text-xs font-bold border p-1 rounded'>
-              <NavLink to='/products-table' className='flex items-center'>BACK</NavLink>
-            </button>
-            <h3 className='text-blue-900 font-bold text-md roboto'>Edit PRODUCT <span className='border p-1 text-gray-500'># {productId}</span></h3>
-          </div> 
+
+            {/*  */}
+            <div className="text-md font-light px-3 border-b mb-2 py-2 flex items-center gap-2">
+                <NavLink to='/products-table'>
+                    <p>Products Table </p>
+                </NavLink>
+                <span>/</span>
+                <NavLink to='/products-table'>
+                    <p className='font-normal text-pink-800'>Edit Product # {productId}</p>
+                </NavLink>
+            </div>
+            {/*  */}
 
           <div className="img-cont h-36 border border-gray-900">
             <img src={productImage} alt="Product img"  className='w-full h-full object-contain' />

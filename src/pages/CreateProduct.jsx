@@ -91,13 +91,17 @@ const CreateProduct = () => {
       {alertMessage && <CenterAlert type={alertMessage.type} text={alertMessage.message} />}
       {loading && <Spinner />}
       <section className='w-full p-2'>
-        <div className="mt-2 w-full md:w-8/12">
-        <div className="flex gap-2 items-center border-b py-2">
-                
-            <button className='text-xs font-bold border p-1 rounded'><NavLink to='/products-table' className='flex items-center'>BACK</NavLink></button>
-            
-            <h3 className='text-blue-900 font-bold text-md roboto'>NEW PRODUCT </h3>
-        </div> 
+        <div className="mt-2 w-full md:w-8/12">  {/*  */}
+            <div className="text-md font-light px-3 border-b mb-2 py-2 flex items-center gap-2">
+                <NavLink to='/products-table'>
+                    <p>Products Table </p>
+                </NavLink>
+                <span>/</span>
+                <NavLink to='/products-table'>
+                    <p className='font-normal text-pink-800'>Create Product</p>
+                </NavLink>
+            </div>
+            {/*  */}
           <form className='p-2 mt-2 border w-full' onSubmit={handleSubmit}>
             <div className="b-t">
               <label className='roboto text-xs text-gray-600 block font-light my-1' htmlFor="product-image">Product Image</label>

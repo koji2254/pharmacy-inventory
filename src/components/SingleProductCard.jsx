@@ -1,53 +1,113 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const SingleProductCard = ({ closeSingleProduct, addProductToCart, product }) => {
   const { productId, productTitle, price, packetPrice, cartonPrice } = product;
 
-  const [pcsQty, setPcsQty] = useState(0);
+  const [activeProduct, setActiveProduct] = useState(null)
+  const [activeDescription, setActiveDescription] = useState('pcs')
+  const [activeQty, setActiveQty] = useState(1)
+  const [activePrice, setActivePrice] = useState(price)
+
+  const [pcsQty, setPcsQty] = useState(1);
   const [packetQty, setPacketQty] = useState(0);
   const [cartonQty, setCartonQty] = useState(0);
 
-  const [pcsSubtotal, setPcsSubtotal] = useState(0);
+  const [pcsSubtotal, setPcsSubtotal] = useState(price);
   const [packetSubtotal, setPacketSubtotal] = useState(0);
   const [cartonSubtotal, setCartonSubtotal] = useState(0);
 
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(price * 1);
 
   const onChangeQty = (type, value) => {
     value = parseInt(value) || 0; // Ensure value is a number or default to 0
   
+    // Prevent negative values
+    if (value <= 0) {
+      value = 1;
+    }
+
     if (type === 'pcs') {
       setPcsQty(value);
       setPcsSubtotal(value * price);
+
+      const subtotal = (value * price)
+      setTotal(subtotal)
+
+      setActiveDescription('pcs')
+      setActivePrice(price)
+      setActiveQty(value)
+
+      
+      setPacketQty(0);
+      setCartonQty(0);
+      setPacketSubtotal(0);
+      setCartonSubtotal(0);
+
+      // -------------------
+      
+      // Calculate the total considering all categories
+     setTotal(price * value);
+      // -------------------
     } else if (type === 'packet') {
       setPacketQty(value);
       setPacketSubtotal(value * packetPrice);
+
+      setActiveDescription('packet')
+      setActivePrice(packetPrice)
+      setActiveQty(value)
+
+      // Calculate the total considering all categories
+    setTotal(packetPrice * value);
+         // -------------------
+         setPcsQty(0);
+         setCartonQty(0);
+         setCartonSubtotal(0);
+         setPcsSubtotal(0);
+   
+         // -------------------
+
     } else if (type === 'carton') {
       setCartonQty(value);
       setCartonSubtotal(value * cartonPrice);
+
+      setActiveDescription('carton')
+      setActivePrice(cartonPrice)
+      setActiveQty(value)
+
+      // Calculate the total considering all categories
+    setTotal(cartonPrice * value);
+         // -------------------
+         setPacketQty(0);
+         setPcsQty(0);
+         setPacketSubtotal(0);
+         setPcsSubtotal(0);
+         
+         // -------------------
     }
   
     // Calculate the total considering all categories
-    setTotal(
-      (type === 'pcs' ? value * price : pcsQty * price) +
-      (type === 'packet' ? value * packetPrice : packetQty * packetPrice) +
-      (type === 'carton' ? value * cartonPrice : cartonQty * cartonPrice)
-    );
+    setTotal(activePrice * value);
   };
+
+  useEffect(() => {
+    console.log(total)
+
+  }, [pcsQty, packetQty, cartonQty, total])
   
   const handleAddToCart = () => {
     const productOrder = {
       productId,
-      productTitle,
-      pcsQty,
-      pcsSubtotal,
-      packetQty,
-      packetSubtotal,
-      cartonQty,
-      cartonSubtotal,
-      total,
+      description: activeDescription,
+      qty: activeQty,
+      price: activePrice,
+      subTotal: activePrice * activeQty,
+      productTitle
     };
-    
+
+    if((productOrder.qyt <= 0) || (productOrder.subTotal === 0)){
+      return alert('Pls select a valid parameters')
+    }
+
     addProductToCart(productOrder);
   };
 
@@ -60,7 +120,7 @@ const SingleProductCard = ({ closeSingleProduct, addProductToCart, product }) =>
           {/* PCS */}
           <div className="flex justify-between border-b p-1 items-center text-sm">
             <p className="text-bold">
-              <span className="text-gray-600">Price: </span>{price}
+              <span className="text-gray-600"><span name='description'></span>Price: </span>{price}
             </p>
             <p className="flex items-center">
               <input
@@ -79,7 +139,7 @@ const SingleProductCard = ({ closeSingleProduct, addProductToCart, product }) =>
           {/* PACKET */}
           <div className="flex justify-between border-b p-1 items-center text-sm">
             <p className="text-bold">
-              <span className="text-gray-600">Packet Price: </span>{packetPrice}
+              <span className="text-gray-600"><span name='description'>Packet</span> Price: </span>{packetPrice}
             </p>
             <p className="flex items-center">
               <input
@@ -98,7 +158,7 @@ const SingleProductCard = ({ closeSingleProduct, addProductToCart, product }) =>
           {/* CARTON */}
           <div className="flex justify-between border-b p-1 items-center text-sm">
             <p className="text-bold">
-              <span className="text-gray-600">Carton Price: </span>{cartonPrice}
+              <span className="text-gray-600"><span name='description'>Carton</span> Price: </span>{cartonPrice}
             </p>
             <p className="flex items-center">
               <input

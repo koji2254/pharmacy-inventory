@@ -14,6 +14,14 @@ const ProductsTable = () => {
     const [products, setProducts] = useState([])
     const [loading, setLaoding] = useState(false)
 
+    const [searchQuery, setSearchQuery] = useState(''); // State to hold the search input
+
+    // Filtered products based on the search query
+    const filteredProducts = products.filter((product) =>
+      product.productTitle.toLowerCase().includes(searchQuery.toLowerCase()) // Case-insensitive search
+    );
+  
+
     useEffect(() => {
 
         setLaoding(true)
@@ -62,16 +70,20 @@ const ProductsTable = () => {
             </div>
             <div className="flex mt-2 p-2 px-4 bg-gray-950">
                 <div className="w-full flex gap-2 items-center ">
-                    <input placeholder='Search Product' type="text" className='bg-gray-800 text-white p-2 border border-pink-900 h-8 rounded text-sm w-5/6'/>
-                    <button className='text-white hover:bg-gray-600 border-blue-900 text-xs h-8 rounded p-2'>Search</button>
+                    <input 
+                        placeholder='Search Product' 
+                        type="text" 
+                        alue={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className='bg-gray-800 text-white p-2 border border-pink-900 h-8 rounded text-sm w-5/6'/>
                 </div>
             </div>
             <div className="">
                 
 
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <table class="w-full text-sm roboto text-left rtl:text-right text-gray-500 ">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-200">
                         <tr>
                             <th scope="col" class="px-6 py-3">
                                 Product name
@@ -88,7 +100,7 @@ const ProductsTable = () => {
                         </tr>
                     </thead>
                     <tbody>
-                    {products.map((product) => (
+                    {filteredProducts.map((product) => (
                     <tr key={product.productId} className="border-b odd:bg-gray-100 even:bg-gray-50">
                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             {product.productTitle}

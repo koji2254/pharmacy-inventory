@@ -8,6 +8,8 @@ import EditProduct from './pages/EditProduct';
 import ShopNow from './pages/ShopNow';
 import Expenses from './pages/Expenses';
 import Footer from './components/Footer';
+import HistoryPage from './pages/HistoryPage';
+import SingleHistoryPage from './pages/SingleHistoryPage';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -24,6 +26,8 @@ function App() {
             <Route path="/edit-product/:id" element={<EditProduct />} />
             <Route path="/shop-now" element={<ShopNow />} />
             <Route path="/expenses" element={<Expenses />} />
+            <Route path="/history" element={<HistoryPage />} />
+            <Route path="/history/:cartId" element={<SingleHistoryPage />} />
           
             
           </Routes>
